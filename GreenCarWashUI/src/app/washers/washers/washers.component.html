@@ -1,0 +1,99 @@
+<div class="mgmt-page">
+  <div class="mgmt-header">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-person-badge me-2"></i>Washer Management</h2>
+      <p class="text-white-50 small mb-0">Add, update and manage your washer team.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn-back" (click)="goBack()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+      <button class="btn btn-light rounded-pill px-4 fw-semibold" (click)="openAddUserForm()">
+        <i class="bi bi-person-plus me-1"></i>Add Washer
+      </button>
+      <button class="btn btn-outline-light rounded-pill px-4 fw-semibold" (click)="exportReport()">
+        <i class="bi bi-download me-1"></i>Export
+      </button>
+    </div>
+  </div>
+
+  <div class="mgmt-body">
+    <div *ngIf="!modalVisible" class="table-card">
+      <div class="table-responsive">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let washer of washers">
+              <td class="fw-semibold">{{ washer.fullname }}</td>
+              <td class="text-muted">{{ washer.emailId }}</td>
+              <td>{{ washer.phoneNumber }}</td>
+              <td>
+                <span [class]="washer.isActive ? 'badge-active' : 'badge-inactive'">
+                  {{ washer.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn-tbl btn-tbl-warn" (click)="openUpdateUserForm(washer.userId)"><i class="bi bi-pencil"></i></button>
+                  <button class="btn-tbl btn-tbl-success" (click)="activateUser(washer.userId)"><i class="bi bi-check-circle"></i></button>
+                  <button class="btn-tbl btn-tbl-danger" (click)="deactivateUser(washer.userId)"><i class="bi bi-x-circle"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+    <div class="text-center mb-4">
+      <div class="modal-icon mx-auto mb-3"><i class="bi bi-person-badge text-white fs-5"></i></div>
+      <h5 class="fw-bold">{{ selectedWasher ? 'Update Washer' : 'Add Washer' }}</h5>
+    </div>
+    <form (ngSubmit)="submitForm()">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.fullname" name="fullname" required placeholder="Enter full name" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="formData.emailId" name="emailId" required placeholder="Enter email" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="formData.password" name="password" required placeholder="Enter password" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Phone Number</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.phoneNumber" name="phoneNumber" required placeholder="Enter phone number" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Address</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="formData.address" name="address" required placeholder="Enter address"></textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Role</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.role" name="role" required placeholder="Enter role" />
+        </div>
+      </div>
+      <div class="d-flex gap-3 mt-4">
+        <button type="button" class="btn btn-outline-secondary rounded-pill flex-fill" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-purple rounded-pill flex-fill fw-semibold">
+          {{ selectedWasher ? 'Update' : 'Add' }} Washer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

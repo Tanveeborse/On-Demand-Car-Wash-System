@@ -1,0 +1,66 @@
+<div class="profile-page">
+  <div class="profile-header">
+    <button class="btn-back" (click)="goBack()">
+      <i class="bi bi-arrow-left me-1"></i>Back
+    </button>
+    <div class="d-flex align-items-center gap-2 mb-1 mt-3">
+      <i class="bi bi-droplet-fill text-success"></i>
+      <span class="text-white-50 small">GreenCarWash</span>
+    </div>
+    <h2 class="fw-bold text-white mb-1"><i class="bi bi-person-circle me-2"></i>Edit Profile</h2>
+    <p class="text-white-50 small mb-0">Update your personal information below.</p>
+  </div>
+
+  <div class="profile-body">
+    <div class="profile-card" *ngIf="userProfile">
+      <div class="text-center mb-4">
+        <div class="avatar-circle mx-auto mb-3">
+          <span style="font-size:1.6rem;font-weight:800">{{ userProfile.fullname?.charAt(0)?.toUpperCase() }}</span>
+        </div>
+        <h5 class="fw-bold mb-0">{{ userProfile.fullname }}</h5>
+        <p class="text-muted small">{{ userProfile.emailId }}</p>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger py-2 small mb-3">
+        <i class="bi bi-exclamation-circle me-1"></i>{{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success py-2 small mb-3">
+        <i class="bi bi-check-circle me-1"></i>{{ successMessage }}
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person text-muted"></i></span>
+            <input class="form-control" formControlName="fullname" [(ngModel)]="userProfile.fullname" placeholder="Your full name" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope text-muted"></i></span>
+            <input class="form-control" formControlName="emailId" [(ngModel)]="userProfile.emailId" placeholder="Your email" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-telephone text-muted"></i></span>
+            <input class="form-control" formControlName="phoneNumber" [(ngModel)]="userProfile.phoneNumber" placeholder="Your phone number" />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Address</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-geo-alt text-muted"></i></span>
+            <input class="form-control" formControlName="address" [(ngModel)]="userProfile.address" placeholder="Your address" />
+          </div>
+        </div>
+        <button type="submit" class="btn-save w-100 rounded-pill fw-semibold py-2" [disabled]="profileForm.invalid">
+          <i class="bi bi-check-circle me-2"></i>Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

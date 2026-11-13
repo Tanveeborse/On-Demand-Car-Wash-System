@@ -1,0 +1,6 @@
+@GreenWashAPI_HostAddress = http://localhost:5022
+
+GET {{GreenWashAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

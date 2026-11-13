@@ -1,0 +1,70 @@
+<div class="login-wrapper">
+  <!-- LEFT PANEL -->
+  <div class="brand-panel d-none d-lg-flex flex-column align-items-center justify-content-center text-white text-center p-5">
+    <i class="bi bi-droplet-fill brand-icon mb-3"></i>
+    <h2 class="fw-bold fs-1">GreenCarWash</h2>
+    <p class="text-white-50 mt-2">Eco-friendly car care, delivered to your door.</p>
+    <div class="brand-features mt-5">
+      <div class="brand-feature-item" *ngFor="let f of brandFeatures">
+        <i class="bi me-2" [class]="f.icon"></i>{{ f.text }}
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="form-panel d-flex align-items-center justify-content-center p-4">
+    <div class="login-card w-100">
+      <div class="text-center mb-4">
+        <div class="logo-circle mx-auto mb-3">
+          <i class="bi bi-droplet-fill text-white fs-4"></i>
+        </div>
+        <h3 class="fw-bold">Welcome Back</h3>
+        <p class="text-muted small">Sign in to your GreenCarWash account</p>
+      </div>
+
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="mb-3">
+          <label class="form-label fw-semibold small">Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0">
+              <i class="bi bi-envelope text-muted"></i>
+            </span>
+            <input type="email" class="form-control border-start-0 ps-0" placeholder="you@example.com"
+              [(ngModel)]="email" name="email" required />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold small">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0">
+              <i class="bi bi-lock text-muted"></i>
+            </span>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control border-start-0 border-end-0 ps-0"
+              placeholder="Enter your password" [(ngModel)]="password" name="password" required />
+            <span class="input-group-text bg-light border-start-0 cursor-pointer" (click)="showPassword = !showPassword">
+              <i class="bi text-muted" [class]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-login w-100 rounded-pill py-2 fw-semibold"
+          [disabled]="loginForm.invalid || loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Signing in...' : 'Sign In' }}
+          <i *ngIf="!loading" class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </form>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 py-2 small text-center">
+        <i class="bi bi-exclamation-circle me-1"></i>{{ errorMessage }}
+      </div>
+
+      <div class="text-center mt-4">
+        <p class="text-muted small mb-0">Don't have an account?
+          <a [routerLink]="['/register']" class="text-purple fw-semibold text-decoration-none">Sign Up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

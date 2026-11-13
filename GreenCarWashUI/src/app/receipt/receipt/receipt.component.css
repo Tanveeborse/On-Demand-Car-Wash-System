@@ -1,0 +1,101 @@
+.receipt-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #1a0015 0%, #4f0341 55%, #0d2b0d 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+
+.receipt-card {
+  background: #fff;
+  border-radius: 24px;
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+  animation: slideUp 0.4s ease;
+}
+
+.receipt-header {
+  background: linear-gradient(135deg, #1a0015, #4f0341);
+  padding: 28px 28px 20px;
+}
+
+.receipt-num-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 28px 0;
+}
+
+.receipt-num-badge {
+  background: #f3e8f1;
+  color: #4f0341;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 50px;
+}
+
+.receipt-divider {
+  border-top: 2px dashed #f0e8ef;
+  margin: 16px 28px;
+  position: relative;
+}
+.receipt-divider::before,
+.receipt-divider::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 24px; height: 24px;
+  background: linear-gradient(160deg, #1a0015, #4f0341);
+  border-radius: 50%;
+}
+.receipt-divider::before { left: -40px; }
+.receipt-divider::after  { right: -40px; }
+
+.receipt-rows { padding: 0 28px; }
+
+.receipt-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #f5f0f4;
+}
+
+.row-label { font-size: 14px; color: #6b7280; display: flex; align-items: center; }
+.row-value  { font-size: 14px; font-weight: 600; color: #1a0015; text-align: right; max-width: 55%; }
+.text-purple { color: #4f0341; }
+
+.receipt-total {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, #f3e8f1, #fdf4fc);
+  margin: 20px 28px 0;
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #4f0341;
+}
+
+.total-amount {
+  font-size: 22px;
+  font-weight: 800;
+  color: #4f0341;
+}
+
+.receipt-footer {
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+  padding: 20px 28px 28px;
+  margin: 0;
+}
+
+/* Error / Loading */
+.error-card, .loading-card {
+  text-align: center;
+  color: white;
+  padding: 48px;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}

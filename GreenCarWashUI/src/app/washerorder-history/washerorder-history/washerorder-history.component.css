@@ -1,0 +1,46 @@
+.history-count-badge {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: 15px;
+  backdrop-filter: blur(4px);
+}
+
+.order-id-badge {
+  background: #f3e8f1;
+  color: #4f0341;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+
+.pkg-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+
+.text-purple { color: #4f0341; }
+
+.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+}
+
+.card-glass { padding: 0; overflow: hidden; }

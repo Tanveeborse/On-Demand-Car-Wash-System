@@ -1,0 +1,65 @@
+<div class="mgmt-page">
+  <div class="mgmt-header">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-card-list me-2"></i>Service Plans</h2>
+      <p class="text-white-50 small mb-0">Manage your wash packages and pricing.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn-back" (click)="goBack()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+      <button class="btn btn-light rounded-pill px-4 fw-semibold" (click)="openAddForm()">
+        <i class="bi bi-plus-circle me-1"></i>Add Plan
+      </button>
+    </div>
+  </div>
+
+  <div class="mgmt-body">
+    <div class="row g-4">
+      <div class="col-sm-6 col-xl-4" *ngFor="let package of packages">
+        <div class="plan-card h-100">
+          <div class="plan-icon mb-3"><i class="bi bi-droplet-half"></i></div>
+          <h5 class="fw-bold mb-1">{{ package.packageName }}</h5>
+          <p class="text-muted small mb-3">{{ package.packageDescription }}</p>
+          <div class="plan-price mb-4">${{ package.price }}<span class="fs-6 text-muted fw-normal">/wash</span></div>
+          <button class="btn btn-update w-100 rounded-pill" (click)="openEditForm(package.packageId, package)">
+            <i class="bi bi-pencil me-1"></i>Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+    <div class="text-center mb-4">
+      <div class="modal-icon mx-auto mb-3"><i class="bi bi-card-list text-white fs-5"></i></div>
+      <h5 class="fw-bold">{{ actionType === 'Add' ? 'Add New' : 'Update' }} Service Plan</h5>
+    </div>
+    <form (ngSubmit)="submitForm()">
+      <div class="mb-3">
+        <label class="form-label">Package Name</label>
+        <input type="text" class="form-control" [(ngModel)]="currentPlan.packageName" name="packageName" required placeholder="e.g. Deluxe Wash" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="currentPlan.packageDescription" name="packageDescription" required placeholder="Describe the package..."></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price ($)</label>
+        <input type="number" class="form-control" [(ngModel)]="currentPlan.price" name="price" required placeholder="0.00" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Status</label>
+        <select class="form-select" [(ngModel)]="currentPlan.isActive" name="isActive" required>
+          <option [value]="true">Active</option>
+          <option [value]="false">Inactive</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-purple w-100 rounded-pill fw-semibold">
+        <i class="bi bi-check-circle me-1"></i>{{ actionType === 'Add' ? 'Add Plan' : 'Update Plan' }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+.signup-wrapper { display: flex; min-height: 100vh; }
+
+.brand-panel {
+  width: 42%;
+  background: linear-gradient(160deg, #1a0015 0%, #4f0341 60%, #0d2b0d 100%);
+  position: relative; overflow: hidden;
+}
+.brand-panel::before {
+  content: ''; position: absolute;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(0,200,100,0.15), transparent 70%);
+  top: -60px; right: -60px; border-radius: 50%;
+}
+.brand-icon { font-size: 3.5rem; color: #4ade80; }
+.step-item {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; padding: 12px 16px;
+  margin-bottom: 12px; font-size: 14px;
+  color: rgba(255,255,255,0.85); text-align: left;
+}
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #4ade80; color: #1a0015;
+  font-weight: 700; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.form-panel { flex: 1; background: #faf8fa; overflow-y: auto; }
+.signup-card {
+  max-width: 460px;
+  background: #fff; border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 10px 40px rgba(79,3,65,0.1);
+  border: 1px solid #f0e8ef;
+}
+.logo-circle {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, #4f0341, #da57c2);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.input-group-text { border-color: #e2d8e0; background: #faf8fa !important; }
+.form-control, textarea.form-control {
+  border-color: #e2d8e0; background: #faf8fa; font-size: 14px;
+}
+.form-control:focus { border-color: #4f0341; box-shadow: 0 0 0 3px rgba(79,3,65,0.1); background: #fff; }
+.input-group:focus-within .input-group-text { border-color: #4f0341; }
+.cursor-pointer { cursor: pointer; }
+
+.role-option input[type="radio"] { display: none; }
+.role-option label {
+  display: inline-flex; align-items: center;
+  padding: 10px 20px; border-radius: 50px;
+  border: 2px solid #e2d8e0; cursor: pointer;
+  font-size: 14px; font-weight: 500; color: #555;
+  transition: all 0.2s;
+}
+.role-option input[type="radio"]:checked + label {
+  border-color: #4f0341; background: #f3e8f1; color: #4f0341; font-weight: 600;
+}
+
+.btn-register {
+  background: linear-gradient(135deg, #4f0341, #da57c2);
+  color: white; border: none; font-size: 15px; transition: all 0.3s;
+}
+.btn-register:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79,3,65,0.3); color: white; }
+.btn-register:disabled { opacity: 0.65; }
+.text-purple { color: #4f0341; }
+
+@media (max-width: 991px) {
+  .form-panel { background: linear-gradient(160deg, #1a0015, #4f0341 50%, #0d2b0d); }
+  .signup-card { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+}

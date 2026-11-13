@@ -1,0 +1,72 @@
+<div class="receipt-page">
+  <div class="receipt-card" *ngIf="receipt">
+    <!-- HEADER -->
+    <div class="receipt-header">
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <i class="bi bi-droplet-fill text-success fs-5"></i>
+        <span class="fw-bold text-white fs-5">GreenCarWash</span>
+      </div>
+      <p class="text-white-50 small mb-0">Official Payment Receipt</p>
+    </div>
+
+    <!-- RECEIPT NUMBER BADGE -->
+    <div class="receipt-num-row">
+      <span class="receipt-num-badge">
+        <i class="bi bi-hash me-1"></i>{{ receipt.receiptNumber }}
+      </span>
+      <span class="receipt-date text-muted small">{{ receipt.createdAt | date:'medium' }}</span>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="receipt-divider"></div>
+
+    <!-- ROWS -->
+    <div class="receipt-rows">
+      <div class="receipt-row">
+        <span class="row-label"><i class="bi bi-bag-check me-2 text-purple"></i>Order ID</span>
+        <span class="row-value">#{{ receipt.orderId }}</span>
+      </div>
+      <div class="receipt-row">
+        <span class="row-label"><i class="bi bi-car-front me-2 text-purple"></i>Car</span>
+        <span class="row-value">{{ receipt.carMake }}</span>
+      </div>
+      <div class="receipt-row">
+        <span class="row-label"><i class="bi bi-box me-2 text-purple"></i>Package</span>
+        <span class="row-value">{{ receipt.packageDetails }}</span>
+      </div>
+      <div class="receipt-row" *ngIf="receipt.addOnDetails">
+        <span class="row-label"><i class="bi bi-plus-circle me-2 text-purple"></i>Add-Ons</span>
+        <span class="row-value">{{ receipt.addOnDetails }}</span>
+      </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="receipt-total">
+      <span>Total Paid</span>
+      <span class="total-amount">${{ receipt.totalAmount }}</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="d-flex gap-3 mt-4">
+      <button class="btn-purple flex-fill rounded-pill py-2 fw-semibold" (click)="closeReceipt()">
+        <i class="bi bi-star me-2"></i>Leave a Review
+      </button>
+    </div>
+
+    <!-- FOOTER -->
+    <p class="receipt-footer">Thank you for choosing GreenCarWash 🌿</p>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div class="error-card" *ngIf="errorMessage">
+    <i class="bi bi-exclamation-triangle-fill text-danger fs-1 mb-3"></i>
+    <h5 class="fw-bold">Receipt Unavailable</h5>
+    <p class="text-muted">{{ errorMessage }}</p>
+  </div>
+
+  <!-- LOADING STATE -->
+  <div class="loading-card" *ngIf="!receipt && !errorMessage">
+    <div class="spinner-border text-light" role="status"></div>
+    <p class="text-white mt-3">Generating your receipt...</p>
+  </div>
+</div>

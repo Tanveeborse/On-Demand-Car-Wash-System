@@ -1,0 +1,61 @@
+.washer-nav {
+  height: 64px; background: rgba(79,3,65,0.95);
+  backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.washer-hero {
+  min-height: 140px;
+  background: linear-gradient(135deg, #1a0015 0%, #4f0341 60%, #0d2b0d 100%);
+}
+.washer-content { background: #faf8fa; min-height: calc(100vh - 204px); }
+
+/* ORDER COLUMNS */
+.order-col { background: #fff; border-radius: 16px; border: 1px solid #f0e8ef; overflow: hidden; height: 100%; }
+.order-col-header {
+  padding: 14px 18px; font-weight: 700; font-size: 14px;
+  display: flex; align-items: center;
+}
+.pending-header  { background: #fef9c3; color: #854d0e; }
+.accepted-header { background: #dbeafe; color: #1e40af; }
+.inprocess-header{ background: #cffafe; color: #155e75; }
+.order-col-body  { padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
+.empty-col { text-align: center; color: #9ca3af; font-size: 13px; padding: 30px 0; }
+
+.order-card {
+  background: #faf8fa; border-radius: 12px;
+  padding: 14px; border: 1px solid #f0e8ef;
+  transition: box-shadow 0.2s;
+}
+.order-card:hover { box-shadow: 0 4px 16px rgba(79,3,65,0.1); }
+.order-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.order-id { font-size: 12px; font-weight: 700; color: #6b7280; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; }
+.status-dot.pending   { background: #f59e0b; }
+.status-dot.accepted  { background: #3b82f6; }
+.status-dot.inprocess { background: #06b6d4; }
+.order-meta { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6b7280; }
+.text-purple { color: #4f0341; }
+
+.btn-accept   { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; font-size: 13px; font-weight: 600; padding: 8px; }
+.btn-start    { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; font-size: 13px; font-weight: 600; padding: 8px; }
+.btn-complete { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; font-size: 13px; font-weight: 600; padding: 8px; }
+.btn-accept:hover, .btn-start:hover, .btn-complete:hover { opacity: 0.88; }
+
+/* LEADERBOARD */
+.leaderboard-card { background: #fff; border-radius: 16px; border: 1px solid #f0e8ef; overflow: hidden; }
+.leaderboard-header { padding: 18px 22px; display: flex; align-items: center; border-bottom: 1px solid #f0e8ef; }
+.modern-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.modern-table thead th {
+  background: #4f0341; color: white; padding: 13px 18px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.modern-table tbody td { padding: 13px 18px; border-bottom: 1px solid #f0e8ef; font-size: 14px; }
+.modern-table tbody tr:hover { background: #faf8fa; }
+.rank-badge {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; background: #f0e8ef; color: #4f0341;
+}
+.rank-badge.gold   { background: #fef08a; color: #854d0e; }
+.rank-badge.silver { background: #e2e8f0; color: #475569; }
+.rank-badge.bronze { background: #fed7aa; color: #9a3412; }

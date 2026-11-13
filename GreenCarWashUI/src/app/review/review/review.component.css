@@ -1,0 +1,34 @@
+.review-page { min-height: 100vh; background: linear-gradient(160deg, #1a0015 0%, #4f0341 40%, #faf8fa 40%); }
+.review-header { padding: 40px 40px 60px; }
+.review-body { padding: 0 24px 40px; margin-top: -40px; display: flex; justify-content: center; }
+.review-card { background: #fff; border-radius: 20px; box-shadow: 0 16px 48px rgba(79,3,65,0.14); border: 1px solid #f0e8ef; width: 100%; max-width: 520px; padding: 36px; }
+
+.washer-info-bar { display: flex; align-items: center; gap: 14px; background: #faf8fa; border-radius: 12px; padding: 14px 18px; border: 1px solid #f0e8ef; }
+.washer-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, #4f0341, #da57c2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; flex-shrink: 0; }
+.text-purple { color: #4f0341; }
+
+/* STARS */
+.stars-row { display: flex; justify-content: center; gap: 8px; }
+.star-icon { font-size: 2.4rem; cursor: pointer; color: #e2d8e0; transition: all 0.15s; }
+.star-icon.filled { color: #f59e0b; transform: scale(1.1); }
+.star-icon:hover { color: #f59e0b; transform: scale(1.15); }
+
+/* OPTIONS */
+.options-grid { display: flex; flex-direction: column; gap: 10px; }
+.option-chip {
+  display: flex; align-items: center;
+  padding: 12px 16px; border-radius: 12px;
+  border: 1.5px solid #e2d8e0; cursor: pointer;
+  font-size: 14px; color: #555; transition: all 0.2s;
+  user-select: none;
+}
+.option-chip:hover { border-color: #4f0341; color: #4f0341; background: #faf8fa; }
+.option-chip.selected { border-color: #4f0341; background: #f3e8f1; color: #4f0341; font-weight: 600; }
+
+/* BUTTONS */
+.btn-submit { background: linear-gradient(135deg, #4f0341, #da57c2); color: white; border: none; font-size: 15px; transition: all 0.3s; cursor: pointer; }
+.btn-submit:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79,3,65,0.3); }
+.btn-dashboard { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; font-size: 15px; transition: all 0.3s; cursor: pointer; }
+.btn-dashboard:hover { opacity: 0.88; }
+
+@media (max-width: 600px) { .review-header { padding: 28px 20px 50px; } .review-body { padding: 0 12px 28px; } .review-card { padding: 24px; } }

@@ -1,0 +1,38 @@
+﻿# .NET build files
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.suo
+**/TestResults/
+
+# Angular and Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+
+# Local environment and secrets
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.json
+**/secrets.*.json
+**/appsettings.*.local.json
+
+# Local development configuration - review before publishing
+**/appsettings.Development.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Duplicate frontend copies - keep locally, don't publish
+/GreenWashFrontend/
+/GreenWashUI/
+
+# Frontend ZIP backup
+/GreenCarWashUI.zip
+
+# IDE workspace settings
+**/.vscode/

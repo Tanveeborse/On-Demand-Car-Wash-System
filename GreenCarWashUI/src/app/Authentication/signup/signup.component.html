@@ -1,0 +1,108 @@
+<div class="signup-wrapper">
+  <!-- LEFT PANEL -->
+  <div class="brand-panel d-none d-lg-flex flex-column align-items-center justify-content-center text-white text-center p-5">
+    <i class="bi bi-droplet-fill brand-icon mb-3"></i>
+    <h2 class="fw-bold fs-1">Join GreenCarWash</h2>
+    <p class="text-white-50 mt-2">Create your account and start booking eco-friendly car washes today.</p>
+    <div class="brand-steps mt-5 w-100" style="max-width:280px">
+      <div class="step-item" *ngFor="let s of steps; let i = index">
+        <div class="step-num">{{ i + 1 }}</div>
+        <span>{{ s }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="form-panel d-flex align-items-center justify-content-center p-4">
+    <div class="signup-card w-100">
+      <div class="text-center mb-4">
+        <div class="logo-circle mx-auto mb-3">
+          <i class="bi bi-person-plus-fill text-white fs-5"></i>
+        </div>
+        <h3 class="fw-bold">Create Account</h3>
+        <p class="text-muted small">Fill in your details to get started</p>
+      </div>
+
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Full Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person text-muted"></i></span>
+              <input type="text" class="form-control" placeholder="John Doe"
+                [(ngModel)]="fullName" name="fullName" required />
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email Address</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope text-muted"></i></span>
+              <input type="email" class="form-control" placeholder="you@example.com"
+                [(ngModel)]="email" name="email" required />
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock text-muted"></i></span>
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control"
+                placeholder="Create a password" [(ngModel)]="password" name="password" required />
+              <span class="input-group-text cursor-pointer" (click)="showPassword = !showPassword">
+                <i class="bi text-muted" [class]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Phone Number</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-telephone text-muted"></i></span>
+              <input type="text" class="form-control" placeholder="+1 (555) 000-0000"
+                [(ngModel)]="phoneNumber" name="phoneNumber" required />
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Address</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt text-muted"></i></span>
+              <textarea class="form-control" rows="2" placeholder="Your address"
+                [(ngModel)]="address" name="address" required></textarea>
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Profile Picture <span class="text-muted fw-normal">(Optional)</span></label>
+            <input type="file" class="form-control" [(ngModel)]="profilePicture" name="profilePicture" />
+          </div>
+          <div class="col-12">
+            <label class="form-label d-block">Role</label>
+            <div class="role-option">
+              <input type="radio" [(ngModel)]="role" name="role" value="Customer" id="roleCustomer" required />
+              <label for="roleCustomer">
+                <i class="bi bi-person-check me-2"></i>Customer
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-register w-100 rounded-pill py-2 fw-semibold mt-4"
+          [disabled]="registerForm.invalid || loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Creating Account...' : 'Create Account' }}
+          <i *ngIf="!loading" class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </form>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 py-2 small text-center">
+        <i class="bi bi-exclamation-circle me-1"></i>{{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3 py-2 small text-center">
+        <i class="bi bi-check-circle me-1"></i>{{ successMessage }}
+      </div>
+
+      <div class="text-center mt-3">
+        <p class="text-muted small mb-0">Already have an account?
+          <a [routerLink]="['/login']" class="text-purple fw-semibold text-decoration-none">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

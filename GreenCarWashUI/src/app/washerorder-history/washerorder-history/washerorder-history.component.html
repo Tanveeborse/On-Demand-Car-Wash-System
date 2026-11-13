@@ -1,0 +1,63 @@
+<div class="page-wrapper">
+  <div class="container-fluid" style="max-width:1100px">
+
+    <!-- HEADER -->
+    <div class="page-header mb-4">
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <i class="bi bi-droplet-fill text-success"></i>
+          <span class="text-white-50 small">GreenCarWash</span>
+        </div>
+        <h2 class="fw-bold mb-0">Order History</h2>
+        <p class="text-white-50 small mb-0">All your completed wash orders</p>
+      </div>
+      <span class="history-count-badge">{{ pastOrders.length }} Orders</span>
+    </div>
+
+    <!-- ERROR -->
+    <div class="alert-error" *ngIf="errorMessage">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+    </div>
+
+    <!-- EMPTY -->
+    <div class="empty-state" *ngIf="!loading && pastOrders.length === 0 && !errorMessage">
+      <i class="bi bi-inbox fs-1 text-muted mb-3"></i>
+      <p class="text-muted fw-semibold">No past orders found.</p>
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="card-glass" *ngIf="pastOrders.length > 0">
+      <div class="table-responsive">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Car</th>
+              <th>Package</th>
+              <th>Add-Ons</th>
+              <th>Amount</th>
+              <th>Scheduled</th>
+              <th>Start</th>
+              <th>End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of pastOrders">
+              <td><span class="order-id-badge">#{{ order.orderId }}</span></td>
+              <td class="fw-semibold">{{ order.customerName }}</td>
+              <td><i class="bi bi-car-front me-1 text-muted"></i>{{ order.carName }}</td>
+              <td><span class="pkg-badge">{{ order.package_name }}</span></td>
+              <td class="text-muted small">{{ order.addOns || '—' }}</td>
+              <td class="fw-bold text-purple">${{ order.totalAmount }}</td>
+              <td class="text-muted small">{{ order.scheduledDateTime }}</td>
+              <td class="text-muted small">{{ order.actualStartTime || '—' }}</td>
+              <td class="text-muted small">{{ order.actualEndTime || '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

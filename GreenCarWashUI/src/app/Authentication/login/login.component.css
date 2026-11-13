@@ -1,0 +1,102 @@
+* { font-family: 'Poppins', sans-serif; box-sizing: border-box; }
+
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── LEFT BRAND PANEL ── */
+.brand-panel {
+  width: 45%;
+  background: linear-gradient(160deg, #1a0015 0%, #4f0341 60%, #0d2b0d 100%);
+  position: relative;
+  overflow: hidden;
+}
+.brand-panel::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,200,100,0.15), transparent 70%);
+  top: -80px; right: -80px;
+  border-radius: 50%;
+}
+.brand-icon { font-size: 4rem; color: #4ade80; }
+.brand-features { width: 100%; max-width: 280px; }
+.brand-feature-item {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  text-align: left;
+  backdrop-filter: blur(8px);
+}
+
+/* ── RIGHT FORM PANEL ── */
+.form-panel {
+  flex: 1;
+  background: #faf8fa;
+}
+.login-card {
+  max-width: 400px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: 0 10px 40px rgba(79,3,65,0.1);
+  border: 1px solid #f0e8ef;
+}
+.logo-circle {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, #4f0341, #da57c2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── INPUTS ── */
+.input-group-text {
+  border-color: #e2d8e0;
+  background: #faf8fa !important;
+}
+.form-control {
+  border-color: #e2d8e0;
+  background: #faf8fa;
+  font-size: 14px;
+}
+.form-control:focus {
+  border-color: #4f0341;
+  box-shadow: 0 0 0 3px rgba(79,3,65,0.1);
+  background: #fff;
+}
+.input-group:focus-within .input-group-text {
+  border-color: #4f0341;
+}
+.cursor-pointer { cursor: pointer; }
+
+/* ── BUTTON ── */
+.btn-login {
+  background: linear-gradient(135deg, #4f0341, #da57c2);
+  color: white;
+  border: none;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+.btn-login:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(79,3,65,0.3);
+  color: white;
+}
+.btn-login:disabled { opacity: 0.65; }
+
+.text-purple { color: #4f0341; }
+.text-purple:hover { color: #7a1060; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 991px) {
+  .form-panel { background: linear-gradient(160deg, #1a0015, #4f0341 50%, #0d2b0d); }
+  .login-card { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+}

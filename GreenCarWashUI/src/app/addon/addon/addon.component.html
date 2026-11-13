@@ -1,0 +1,65 @@
+<div class="mgmt-page">
+  <div class="mgmt-header">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-plus-square me-2"></i>Add-On Management</h2>
+      <p class="text-white-50 small mb-0">Manage optional add-on services for customers.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn-back" (click)="goBack()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+      <button class="btn btn-light rounded-pill px-4 fw-semibold" (click)="openAddForm()">
+        <i class="bi bi-plus-circle me-1"></i>Add Add-On
+      </button>
+    </div>
+  </div>
+
+  <div class="mgmt-body">
+    <div class="row g-4">
+      <div class="col-sm-6 col-xl-4" *ngFor="let addon of addOns">
+        <div class="plan-card h-100">
+          <div class="plan-icon mb-3"><i class="bi bi-stars"></i></div>
+          <h5 class="fw-bold mb-1">{{ addon.addonName }}</h5>
+          <p class="text-muted small mb-3">{{ addon.addonDescription }}</p>
+          <div class="plan-price mb-4">${{ addon.price }}</div>
+          <button class="btn btn-update w-100 rounded-pill" (click)="openEditForm(addon.addonId, addon)">
+            <i class="bi bi-pencil me-1"></i>Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+    <div class="text-center mb-4">
+      <div class="modal-icon mx-auto mb-3"><i class="bi bi-stars text-white fs-5"></i></div>
+      <h5 class="fw-bold">{{ actionType === 'Add' ? 'Add New' : 'Update' }} Add-On</h5>
+    </div>
+    <form (ngSubmit)="submitForm()">
+      <div class="mb-3">
+        <label class="form-label">Add-On Name</label>
+        <input type="text" class="form-control" [(ngModel)]="currentAddOn.addonName" name="addonName" required placeholder="e.g. Tire Shine" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="currentAddOn.addonDescription" name="addonDescription" required placeholder="Describe the add-on..."></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price ($)</label>
+        <input type="number" class="form-control" [(ngModel)]="currentAddOn.price" name="price" required placeholder="0.00" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Status</label>
+        <select class="form-select" [(ngModel)]="currentAddOn.isActive" name="isActive" required>
+          <option [value]="true">Active</option>
+          <option [value]="false">Inactive</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-purple w-100 rounded-pill fw-semibold">
+        <i class="bi bi-check-circle me-1"></i>{{ actionType === 'Add' ? 'Add Add-On' : 'Update Add-On' }}
+      </button>
+    </form>
+  </div>
+</div>

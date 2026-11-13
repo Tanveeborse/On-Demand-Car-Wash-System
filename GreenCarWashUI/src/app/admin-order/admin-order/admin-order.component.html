@@ -1,0 +1,92 @@
+<div class="mgmt-page">
+  <div class="mgmt-header">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-calendar-check me-2"></i>Order Management</h2>
+      <p class="text-white-50 small mb-0">View, assign and track all customer orders.</p>
+    </div>
+    <button class="btn-back" (click)="goBack()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+  </div>
+
+  <div class="mgmt-body">
+    <!-- STATUS FILTER PILLS -->
+    <div class="status-pills mb-4">
+      <button *ngFor="let status of orderStatuses" class="status-pill" (click)="showStatusOrders(status)">
+        {{ status }}
+      </button>
+    </div>
+
+    <!-- PENDING ORDERS TABLE -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <i class="bi bi-hourglass-split me-2 text-warning"></i>
+        <span class="fw-semibold">Pending Orders</span>
+      </div>
+      <div class="table-responsive">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Car</th>
+              <th>Package</th>
+              <th>Scheduled Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td class="fw-semibold text-purple">#{{ order.orderId }}</td>
+              <td>{{ order.customerName }}</td>
+              <td>{{ order.carName }}</td>
+              <td>{{ order.packageName }}</td>
+              <td class="text-muted small">{{ order.scheduledDateTime }}</td>
+              <td>
+                <button class="btn-action" (click)="assignWasher(order.orderId)">
+                  <i class="bi bi-person-check me-1"></i>Assign
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="orders.length === 0">
+              <td colspan="6" class="text-center text-muted py-4">
+                <i class="bi bi-inbox fs-3 d-block mb-2"></i>No pending orders
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS MODAL -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="closeModal()">
+  <div class="modal-box modal-lg-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+    <h5 class="fw-bold mb-4" *ngIf="selectedOrder?.length > 0">
+      <i class="bi bi-funnel me-2 text-purple"></i>Orders — {{ selectedOrder[0]?.orderStatus }}
+    </h5>
+    <div class="table-responsive">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Car</th>
+            <th>Package</th>
+            <th>Scheduled Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of selectedOrder">
+            <td class="fw-semibold text-purple">#{{ order.orderId }}</td>
+            <td>{{ order.customerName }}</td>
+            <td>{{ order.carName }}</td>
+            <td>{{ order.packageName }}</td>
+            <td class="text-muted small">{{ order.scheduledDateTime }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="btn-purple rounded-pill px-4 mt-4 fw-semibold" (click)="closeModal()">Close</button>
+  </div>
+</div>

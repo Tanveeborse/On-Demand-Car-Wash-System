@@ -1,0 +1,20 @@
+.profile-page { min-height: 100vh; background: linear-gradient(160deg, #1a0015 0%, #4f0341 40%, #faf8fa 40%); }
+.profile-header { padding: 40px 40px 60px; }
+.profile-body { padding: 0 24px 40px; margin-top: -40px; display: flex; justify-content: center; }
+.profile-card { background: #fff; border-radius: 20px; box-shadow: 0 16px 48px rgba(79,3,65,0.14); border: 1px solid #f0e8ef; width: 100%; max-width: 500px; padding: 36px; }
+.avatar-circle { width: 72px; height: 72px; background: linear-gradient(135deg, #4f0341, #da57c2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; }
+.btn-back {
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: white; border-radius: 50px; padding: 6px 16px;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-back:hover { background: rgba(255,255,255,0.2); }
+.form-label { font-weight: 600; font-size: 13px; color: #4f0341; margin-bottom: 4px; display: block; }
+.input-group-text { border-color: #e2d8e0; background: #faf8fa !important; }
+.form-control { border-color: #e2d8e0; background: #faf8fa; font-size: 14px; }
+.form-control:focus { border-color: #4f0341; box-shadow: 0 0 0 3px rgba(79,3,65,0.1); background: #fff; }
+.input-group:focus-within .input-group-text { border-color: #4f0341; }
+.btn-save { background: linear-gradient(135deg, #4f0341, #da57c2); color: white; border: none; font-size: 15px; transition: all 0.3s; cursor: pointer; }
+.btn-save:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79,3,65,0.3); }
+.btn-save:disabled { opacity: 0.55; }
+@media (max-width: 600px) { .profile-header { padding: 28px 20px 50px; } .profile-body { padding: 0 12px 28px; } .profile-card { padding: 24px; } }

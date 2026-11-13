@@ -1,0 +1,81 @@
+<div class="mgmt-page">
+  <div class="mgmt-header">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-people me-2"></i>User Management</h2>
+      <p class="text-white-50 small mb-0">View, edit and manage customer accounts.</p>
+    </div>
+    <button class="btn-back" (click)="goBack()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+  </div>
+
+  <div class="mgmt-body">
+    <div *ngIf="!selectedUser" class="table-card">
+      <div class="table-responsive">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td class="text-muted small">#{{ user.userId }}</td>
+              <td class="fw-semibold">{{ user.fullname }}</td>
+              <td class="text-muted">{{ user.emailId }}</td>
+              <td>
+                <span [class]="user.isActive ? 'badge-active' : 'badge-inactive'">
+                  {{ user.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn-tbl btn-tbl-warn" title="Edit" (click)="openEditPopup(user)"><i class="bi bi-pencil"></i></button>
+                  <button *ngIf="!user.isActive && user.userId !== null" class="btn-tbl btn-tbl-success" title="Activate" (click)="activateUser(user.userId)"><i class="bi bi-check-circle"></i></button>
+                  <button *ngIf="user.isActive && user.userId !== null" class="btn-tbl btn-tbl-danger" title="Deactivate" (click)="deactivateUser(user.userId)"><i class="bi bi-x-circle"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="selectedUser" (click)="selectedUser = null">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="selectedUser = null"><i class="bi bi-x-lg"></i></button>
+    <div class="text-center mb-4">
+      <div class="modal-icon mx-auto mb-3"><i class="bi bi-person text-white fs-5"></i></div>
+      <h5 class="fw-bold">Edit User</h5>
+    </div>
+    <form (ngSubmit)="saveUser()">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedUser.fullname" name="fullname" required placeholder="Enter full name" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="selectedUser.emailId" name="emailId" required placeholder="Enter email" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Phone</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedUser.phoneNumber" name="phone" required placeholder="Enter phone number" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Address</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="selectedUser.address" name="address" required placeholder="Enter address"></textarea>
+        </div>
+      </div>
+      <div class="d-flex gap-3 mt-4">
+        <button type="button" class="btn btn-outline-secondary rounded-pill flex-fill" (click)="selectedUser = null">Cancel</button>
+        <button type="submit" class="btn-purple rounded-pill flex-fill fw-semibold">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>

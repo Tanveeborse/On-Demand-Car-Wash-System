@@ -1,0 +1,319 @@
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="bi bi-droplet-fill"></i></div>
+      <div>
+        <div class="brand-name">GreenCarWash</div>
+        <div class="brand-sub">Admin Portal</div>
+      </div>
+    </div>
+
+    <p class="sidebar-label">NAVIGATION</p>
+    <nav class="sidebar-nav">
+      <div class="nav-item" *ngFor="let item of menuItems"
+        [class.active]="currentSection === item.key"
+        (click)="toggleButtons(item.key)">
+        <div class="nav-icon-wrap"><i class="bi" [class]="item.icon"></i></div>
+        <span>{{ item.label }}</span>
+        <i class="bi bi-chevron-right nav-arrow"></i>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="footer-avatar">A</div>
+      <div>
+        <div class="footer-name">Administrator</div>
+        <div class="footer-role">Super Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="admin-main">
+
+    <!-- TOP BAR -->
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <div class="topbar-breadcrumb">
+          <span class="bc-home" (click)="currentSection = ''"><i class="bi bi-house-fill"></i></span>
+          <span *ngIf="currentSection" class="bc-sep"><i class="bi bi-chevron-right"></i></span>
+          <span *ngIf="currentSection" class="bc-current">{{ getActiveLabel() }}</span>
+        </div>
+        <h5 class="topbar-title">{{ currentSection ? getActiveLabel() : 'Dashboard Overview' }}</h5>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div class="notif-btn"><i class="bi bi-bell-fill"></i><span class="notif-dot"></span></div>
+        <div class="admin-user-pill">
+          <div class="admin-avatar">A</div>
+          <div>
+            <div class="pill-name">Admin</div>
+            <div class="pill-role">Super Admin</div>
+          </div>
+        </div>
+        <button class="btn-logout" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="admin-body">
+
+      <!-- WELCOME STATE -->
+      <div *ngIf="!currentSection" class="welcome-state">
+        <div class="welcome-banner">
+          <div class="banner-text">
+            <h3>Welcome back, <span>Admin!</span> 👋</h3>
+            <p>Here's what's happening on your platform today.</p>
+          </div>
+          <div class="banner-illustration">
+            <i class="bi bi-speedometer2"></i>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card" style="--accent:#3b82f6">
+            <div class="stat-icon" style="background:rgba(59,130,246,0.12)"><i class="bi bi-people-fill" style="color:#3b82f6"></i></div>
+            <div class="stat-info">
+              <span class="stat-count" style="color:#3b82f6">{{ totalUsers }}</span>
+              <span class="stat-label">Total Users</span>
+              <span class="stat-hint">Registered accounts</span>
+            </div>
+            <i class="bi bi-arrow-up-right stat-trend" style="color:#3b82f6"></i>
+          </div>
+          <div class="stat-card" style="--accent:#22c55e">
+            <div class="stat-icon" style="background:rgba(34,197,94,0.12)"><i class="bi bi-person-badge-fill" style="color:#22c55e"></i></div>
+            <div class="stat-info">
+              <span class="stat-count" style="color:#22c55e">{{ activeWashers }}</span>
+              <span class="stat-label">Active Washers</span>
+              <span class="stat-hint">On duty today</span>
+            </div>
+            <i class="bi bi-arrow-up-right stat-trend" style="color:#22c55e"></i>
+          </div>
+          <div class="stat-card" style="--accent:#f59e0b">
+            <div class="stat-icon" style="background:rgba(245,158,11,0.12)"><i class="bi bi-calendar-check-fill" style="color:#f59e0b"></i></div>
+            <div class="stat-info">
+              <span class="stat-count" style="color:#f59e0b">{{ pendingOrders }}</span>
+              <span class="stat-label">Pending Orders</span>
+              <span class="stat-hint">Awaiting action</span>
+            </div>
+            <i class="bi bi-arrow-up-right stat-trend" style="color:#f59e0b"></i>
+          </div>
+          <div class="stat-card" style="--accent:#a855f7">
+            <div class="stat-icon" style="background:rgba(168,85,247,0.12)"><i class="bi bi-tag-fill" style="color:#a855f7"></i></div>
+            <div class="stat-info">
+              <span class="stat-count" style="color:#a855f7">{{ activePromoCodes }}</span>
+              <span class="stat-label">Promo Codes</span>
+              <span class="stat-hint">Active discounts</span>
+            </div>
+            <i class="bi bi-arrow-up-right stat-trend" style="color:#a855f7"></i>
+          </div>
+        </div>
+
+        <p class="section-heading">Quick Access</p>
+        <div class="overview-grid">
+          <div class="overview-card" (click)="toggleButtons('userManagement')" style="--card-color:#3b82f6;--card-bg:#eff6ff">
+            <div class="ov-icon"><i class="bi bi-people-fill"></i></div>
+            <p class="ov-label">Users</p>
+            <p class="ov-hint">Manage accounts</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+          <div class="overview-card" (click)="toggleButtons('washerManagement')" style="--card-color:#22c55e;--card-bg:#f0fdf4">
+            <div class="ov-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <p class="ov-label">Washers</p>
+            <p class="ov-hint">View &amp; assign</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+          <div class="overview-card" (click)="toggleButtons('washNowSchedule')" style="--card-color:#f59e0b;--card-bg:#fef9c3">
+            <div class="ov-icon"><i class="bi bi-calendar-check-fill"></i></div>
+            <p class="ov-label">Orders</p>
+            <p class="ov-hint">Track status</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+          <div class="overview-card" (click)="toggleButtons('servicePlanManagement')" style="--card-color:#4f0341;--card-bg:#f3e8f1">
+            <div class="ov-icon"><i class="bi bi-card-list"></i></div>
+            <p class="ov-label">Packages</p>
+            <p class="ov-hint">Plans &amp; pricing</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+          <div class="overview-card" (click)="toggleButtons('addOnManagement')" style="--card-color:#a855f7;--card-bg:#fdf4ff">
+            <div class="ov-icon"><i class="bi bi-plus-square-fill"></i></div>
+            <p class="ov-label">Add-Ons</p>
+            <p class="ov-hint">Extra services</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+          <div class="overview-card" (click)="toggleButtons('promoCodeManagement')" style="--card-color:#f97316;--card-bg:#fff7ed">
+            <div class="ov-icon"><i class="bi bi-tag-fill"></i></div>
+            <p class="ov-label">Promo Codes</p>
+            <p class="ov-hint">Discounts</p>
+            <div class="ov-arrow"><i class="bi bi-arrow-right"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION VIEW -->
+      <div *ngIf="currentSection" class="section-view">
+        <div class="section-header">
+          <button class="back-btn" (click)="currentSection = ''">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+          </button>
+          <h4 class="section-title">{{ getActiveLabel() }}</h4>
+        </div>
+
+        <div class="action-grid">
+          <ng-container [ngSwitch]="currentSection">
+
+            <ng-container *ngSwitchCase="'userManagement'">
+              <div class="action-card" (click)="goToUser()" style="--ac:#3b82f6;--ac-bg:#eff6ff">
+                <div class="ac-icon-wrap"><i class="bi bi-pencil-square"></i></div>
+                <span class="ac-label">Edit User</span>
+                <span class="ac-desc">Modify user details</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToUser()" style="--ac:#10b981;--ac-bg:#ecfdf5">
+                <div class="ac-icon-wrap"><i class="bi bi-toggle-on"></i></div>
+                <span class="ac-label">Active / Inactive</span>
+                <span class="ac-desc">Toggle user status</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'washerManagement'">
+              <div class="action-card" (click)="goToWasher()" style="--ac:#22c55e;--ac-bg:#f0fdf4">
+                <div class="ac-icon-wrap"><i class="bi bi-person-plus"></i></div>
+                <span class="ac-label">Add Washer</span>
+                <span class="ac-desc">Register new washer</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToWasher()" style="--ac:#3b82f6;--ac-bg:#eff6ff">
+                <div class="ac-icon-wrap"><i class="bi bi-pencil"></i></div>
+                <span class="ac-label">Edit Washer</span>
+                <span class="ac-desc">Update washer info</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToWasher()" style="--ac:#10b981;--ac-bg:#ecfdf5">
+                <div class="ac-icon-wrap"><i class="bi bi-toggle-on"></i></div>
+                <span class="ac-label">Active / Inactive</span>
+                <span class="ac-desc">Toggle washer status</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToWasher()" style="--ac:#f59e0b;--ac-bg:#fef9c3">
+                <div class="ac-icon-wrap"><i class="bi bi-star"></i></div>
+                <span class="ac-label">View Ratings</span>
+                <span class="ac-desc">Check performance</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToWasher()" style="--ac:#6366f1;--ac-bg:#eef2ff">
+                <div class="ac-icon-wrap"><i class="bi bi-download"></i></div>
+                <span class="ac-label">Export Report</span>
+                <span class="ac-desc">Download data</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'servicePlanManagement'">
+              <div class="action-card" (click)="goToPackagePlan()" style="--ac:#4f0341;--ac-bg:#f3e8f1">
+                <div class="ac-icon-wrap"><i class="bi bi-plus-circle"></i></div>
+                <span class="ac-label">Add Service Plan</span>
+                <span class="ac-desc">Create new package</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToPackagePlan()" style="--ac:#3b82f6;--ac-bg:#eff6ff">
+                <div class="ac-icon-wrap"><i class="bi bi-pencil"></i></div>
+                <span class="ac-label">Edit / View Plan</span>
+                <span class="ac-desc">Modify existing plans</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToPackagePlan()" style="--ac:#10b981;--ac-bg:#ecfdf5">
+                <div class="ac-icon-wrap"><i class="bi bi-toggle-on"></i></div>
+                <span class="ac-label">Active / Inactive</span>
+                <span class="ac-desc">Toggle plan status</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'addOnManagement'">
+              <div class="action-card" (click)="goToAddOn()" style="--ac:#a855f7;--ac-bg:#fdf4ff">
+                <div class="ac-icon-wrap"><i class="bi bi-plus-circle"></i></div>
+                <span class="ac-label">Add Add-On</span>
+                <span class="ac-desc">Create new add-on</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToAddOn()" style="--ac:#3b82f6;--ac-bg:#eff6ff">
+                <div class="ac-icon-wrap"><i class="bi bi-pencil"></i></div>
+                <span class="ac-label">Edit Add-On</span>
+                <span class="ac-desc">Modify add-on details</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToAddOn()" style="--ac:#10b981;--ac-bg:#ecfdf5">
+                <div class="ac-icon-wrap"><i class="bi bi-toggle-on"></i></div>
+                <span class="ac-label">Active / Inactive</span>
+                <span class="ac-desc">Toggle add-on status</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'promoCodeManagement'">
+              <div class="action-card" (click)="goToPromoCode()" style="--ac:#f97316;--ac-bg:#fff7ed">
+                <div class="ac-icon-wrap"><i class="bi bi-tag"></i></div>
+                <span class="ac-label">Add Promo Code</span>
+                <span class="ac-desc">Create discount code</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToPromoCode()" style="--ac:#3b82f6;--ac-bg:#eff6ff">
+                <div class="ac-icon-wrap"><i class="bi bi-pencil"></i></div>
+                <span class="ac-label">Edit Promo Code</span>
+                <span class="ac-desc">Modify existing codes</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'washNowSchedule'">
+              <div class="action-card" (click)="goToOrder()" style="--ac:#f59e0b;--ac-bg:#fef9c3">
+                <div class="ac-icon-wrap"><i class="bi bi-eye"></i></div>
+                <span class="ac-label">View Orders</span>
+                <span class="ac-desc">Browse all orders</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToOrder()" style="--ac:#22c55e;--ac-bg:#f0fdf4">
+                <div class="ac-icon-wrap"><i class="bi bi-person-check"></i></div>
+                <span class="ac-label">Assign Orders</span>
+                <span class="ac-desc">Assign to washers</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+              <div class="action-card" (click)="goToOrder()" style="--ac:#6366f1;--ac-bg:#eef2ff">
+                <div class="ac-icon-wrap"><i class="bi bi-arrow-repeat"></i></div>
+                <span class="ac-label">Order Status</span>
+                <span class="ac-desc">Track progress</span>
+                <div class="ac-footer"><i class="bi bi-arrow-right"></i></div>
+              </div>
+            </ng-container>
+
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+    <h5 class="fw-bold mb-4">{{ modalTitle }}</h5>
+    <form *ngIf="formFields.length">
+      <div *ngFor="let field of formFields" class="mb-3">
+        <label class="form-label">{{ field.label }}</label>
+        <input type="text" class="form-control" placeholder="Enter {{ field.label }}" />
+      </div>
+      <button type="submit" class="btn btn-purple w-100 rounded-pill mt-2">Submit</button>
+    </form>
+  </div>
+</div>

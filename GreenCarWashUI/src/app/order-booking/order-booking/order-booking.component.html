@@ -1,0 +1,122 @@
+<div class="booking-page">
+  <div class="booking-header">
+    <div class="d-flex align-items-center gap-2 mb-1">
+      <i class="bi bi-droplet-fill text-success"></i>
+      <span class="text-white-50 small">GreenCarWash</span>
+    </div>
+    <h2 class="fw-bold text-white mb-0">Book Your Car Wash</h2>
+    <p class="text-white-50 small mb-0">Fill in the details below to schedule your wash.</p>
+    <!-- PACKAGE SUMMARY PILL -->
+    <div class="pkg-summary-pill mt-3" *ngIf="price > 0">
+      <i class="bi bi-box-seam me-2"></i>
+      <span>Package #{{ packageId }}</span>
+      <span class="pkg-summary-divider"></span>
+      <span class="pkg-summary-price">${{ price }}</span>
+    </div>
+  </div>
+
+  <div class="booking-body">
+    <div class="booking-card">
+
+      <!-- CAR SELECTION -->
+      <div class="form-section">
+        <div class="section-label"><i class="bi bi-car-front me-2"></i>Select Your Car</div>
+        <div class="row g-3 align-items-end">
+          <div class="col-8">
+            <select class="form-select" [(ngModel)]="selectedCar" name="carSelect">
+              <option *ngIf="!cars || cars.length === 0" disabled>No cars available</option>
+              <option *ngFor="let car of cars" [value]="car.carId">{{ car.carmake }} - {{ car.carmodel }}</option>
+              <option>None</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-outline-purple w-100 rounded-pill" (click)="isAddingNewCar = !isAddingNewCar">
+              <i class="bi bi-plus-circle me-1"></i>Add Car
+            </button>
+          </div>
+        </div>
+
+        <!-- NEW CAR FORM -->
+        <div *ngIf="isAddingNewCar" class="new-car-panel mt-3">
+          <p class="fw-semibold small text-purple mb-3"><i class="bi bi-car-front me-1"></i>Add New Car</p>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Make</label>
+              <input class="form-control" [(ngModel)]="newCarMake" placeholder="e.g. Toyota" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Model</label>
+              <input class="form-control" [(ngModel)]="newCarModel" placeholder="e.g. Camry" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Image URL</label>
+              <input class="form-control" [(ngModel)]="newCarImage" placeholder="https://..." />
+            </div>
+          </div>
+          <button class="btn btn-purple rounded-pill px-4 mt-3" (click)="addNewCar()">
+            <i class="bi bi-check-circle me-1"></i>Save Car
+          </button>
+        </div>
+      </div>
+
+      <!-- SCHEDULE -->
+      <div class="form-section">
+        <div class="section-label"><i class="bi bi-calendar-event me-2"></i>Schedule</div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Date</label>
+            <input class="form-control" type="date" [(ngModel)]="scheduleDate" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Time</label>
+            <input class="form-control" type="time" [(ngModel)]="scheduleTime" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD-ONS -->
+      <div class="form-section">
+        <div class="section-label"><i class="bi bi-plus-square me-2"></i>Add-Ons</div>
+        <div class="addon-grid">
+          <label class="addon-chip" *ngFor="let addon of addons" [class.selected]="addon.isChecked">
+            <input type="checkbox" [value]="addon.price" (change)="toggleAddOns(addon, $event)" [checked]="addon.isChecked" hidden />
+            <i class="bi bi-check-circle-fill me-1" *ngIf="addon.isChecked"></i>
+            <i class="bi bi-circle me-1" *ngIf="!addon.isChecked"></i>
+            {{ addon.addonName }} — <strong>${{ addon.price }}</strong>
+          </label>
+        </div>
+      </div>
+
+      <!-- PROMO CODE -->
+      <div class="form-section">
+        <div class="section-label"><i class="bi bi-tag me-2"></i>Promo Code</div>
+        <select class="form-select" [(ngModel)]="selectedPromoCode" (change)="applyPromoCodeDiscount()">
+          <option [ngValue]="null">— No promo code —</option>
+          <option *ngFor="let code of promoCodes" [ngValue]="code">{{ code.code }} — {{ code.discountPercentage }}% Off</option>
+        </select>
+        <div *ngIf="selectedPromoCode" class="promo-applied mt-2">
+          <i class="bi bi-check-circle-fill text-success me-1"></i>
+          <strong>{{ selectedPromoCode.code }}</strong> applied — Discount: <strong>${{ promoDiscount }}</strong>
+        </div>
+      </div>
+
+      <!-- LOCATION -->
+      <div class="form-section">
+        <div class="section-label"><i class="bi bi-geo-alt me-2"></i>Location</div>
+        <input class="form-control" [(ngModel)]="location" placeholder="Enter your address" />
+      </div>
+
+      <!-- TOTAL + SUBMIT -->
+      <div class="total-bar">
+        <div>
+          <p class="text-muted small mb-0">Total Amount</p>
+          <h3 class="fw-bold text-purple mb-0">${{ totalAmount }}</h3>
+        </div>
+        <button class="btn btn-purple rounded-pill px-5 fw-semibold" (click)="bookOrder()">
+          <i class="bi bi-calendar-check me-2"></i>Confirm Booking
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

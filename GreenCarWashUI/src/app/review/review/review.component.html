@@ -1,0 +1,55 @@
+<div class="review-page">
+  <div class="review-header">
+    <div class="d-flex align-items-center gap-2 mb-1">
+      <i class="bi bi-droplet-fill text-success"></i>
+      <span class="text-white-50 small">GreenCarWash</span>
+    </div>
+    <h2 class="fw-bold text-white mb-1">Rate Your Experience</h2>
+    <p class="text-white-50 small mb-0">Your feedback helps us improve our service.</p>
+  </div>
+
+  <div class="review-body">
+    <div class="review-card">
+      <!-- WASHER INFO -->
+      <div class="washer-info-bar mb-4">
+        <div class="washer-avatar"><i class="bi bi-person-fill"></i></div>
+        <div>
+          <p class="fw-semibold mb-0">John Doe</p>
+          <p class="text-muted small mb-0">March 25, 2025 at 10:30 AM</p>
+        </div>
+      </div>
+
+      <!-- STAR RATING -->
+      <div class="text-center mb-4">
+        <p class="fw-semibold text-purple mb-3">How would you rate this wash?</p>
+        <div class="stars-row">
+          <span
+            *ngFor="let star of [].constructor(maxStars); let i = index"
+            class="star-icon"
+            [class.filled]="i < rating"
+            (click)="setRating(i + 1)">
+            <i class="bi bi-star-fill"></i>
+          </span>
+        </div>
+        <p class="text-muted small mt-2">{{ rating > 0 ? rating + ' / 5 stars' : 'Tap to rate' }}</p>
+      </div>
+
+      <!-- OPTIONS -->
+      <p class="fw-semibold text-purple mb-3">What best describes your experience?</p>
+      <div class="options-grid mb-4">
+        <label class="option-chip" *ngFor="let opt of options" [class.selected]="selectedReason === opt.value">
+          <input type="radio" name="reason" [value]="opt.value" [(ngModel)]="selectedReason" hidden />
+          <i class="bi me-2" [class]="opt.icon"></i>{{ opt.label }}
+        </label>
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="btn-submit w-100 rounded-pill fw-semibold py-2" (click)="submitReview()">
+        <i class="bi bi-send me-2"></i>Submit Review
+      </button>
+      <button *ngIf="isReviewSubmitted" class="btn-dashboard w-100 rounded-pill fw-semibold py-2 mt-3" (click)="goToCustomerDashboard()">
+        <i class="bi bi-house me-2"></i>Go to Dashboard
+      </button>
+    </div>
+  </div>
+</div>
